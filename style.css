@@ -207,10 +207,13 @@ body {
 
 .hero-buttons {
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
     gap: 1rem;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    max-width: 500px;
 }
 
 .cta-install {
@@ -626,7 +629,14 @@ body {
         padding: 0 1rem;
     }
 
+    .hero-buttons {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
     .cta-button {
+        width: 100%;
+        max-width: 280px;
         padding: 0.875rem 2rem;
         font-size: 1rem;
     }

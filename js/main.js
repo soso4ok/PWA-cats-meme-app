@@ -107,20 +107,42 @@ function setupInstallPrompt() {
         if (elements.heroInstallBtn) elements.heroInstallBtn.classList.add('hidden');
     };
 
+    const showInstallInstructions = () => {
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        const isSamsung = /SamsungBrowser/.test(navigator.userAgent);
+        const isAndroid = /Android/.test(navigator.userAgent);
+
+        let message = '';
+        if (isIOS) {
+            message = 'To install: Tap the Share button (square with arrow) then "Add to Home Screen"';
+        } else if (isSamsung || isAndroid) {
+            message = 'To install: Open browser menu (⋮) and tap "Add to Home Screen" or "Install app"';
+        } else {
+            message = 'To install: Click the install icon in your browser address bar or use the browser menu';
+        }
+
+        alert(message);
+    };
+
     const handleInstallClick = async () => {
         if (state.installPromptEvent) {
             state.installPromptEvent.prompt();
             const { outcome } = await state.installPromptEvent.userChoice;
             state.installPromptEvent = null;
-            hideInstallButtons();
+            if (outcome === 'accepted') {
+                hideInstallButtons();
+            }
+        } else {
+            showInstallInstructions();
         }
     };
 
     window.addEventListener('beforeinstallprompt', (event) => {
         event.preventDefault();
         state.installPromptEvent = event;
-        showInstallButtons();
     });
+
+    showInstallButtons();
 
     if (elements.installBtn) {
         elements.installBtn.addEventListener('click', handleInstallClick);
@@ -134,6 +156,10 @@ function setupInstallPrompt() {
         state.installPromptEvent = null;
         hideInstallButtons();
     });
+
+    if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
+        hideInstallButtons();
+    }
 }
 
 function setupNetworkDetection() {
