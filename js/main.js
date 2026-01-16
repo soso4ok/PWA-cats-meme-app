@@ -1,13 +1,5 @@
-/**
- * Main JavaScript for Cat Memes PWA
- * Handles Service Worker registration, UI interactions, and meme loading
- */
-
 'use strict';
 
-// =============================================
-// Configuration
-// =============================================
 const CONFIG = {
     serviceWorkerPath: '/sw.js',
     memes: [
@@ -62,18 +54,12 @@ const CONFIG = {
     ]
 };
 
-// =============================================
-// App State
-// =============================================
 const state = {
     isOnline: navigator.onLine,
     serviceWorkerRegistered: false,
     installPromptEvent: null
 };
 
-// =============================================
-// DOM Elements
-// =============================================
 const elements = {
     memeGrid: document.getElementById('memeGrid'),
     modal: document.getElementById('memeModal'),
@@ -86,46 +72,31 @@ const elements = {
     navLinks: document.querySelectorAll('.nav-link')
 };
 
-// =============================================
-// Service Worker Registration
-// =============================================
 async function registerServiceWorker() {
     if ('serviceWorker' in navigator) {
         try {
             const registration = await navigator.serviceWorker.register(CONFIG.serviceWorkerPath);
-            console.log('Service Worker registered successfully:', registration.scope);
             state.serviceWorkerRegistered = true;
             updatePWAStatus();
 
-            // Handle updates
             registration.addEventListener('updatefound', () => {
                 const newWorker = registration.installing;
-                console.log('New Service Worker found, installing...');
 
                 newWorker.addEventListener('statechange', () => {
                     if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                        console.log('New content available, refresh to update.');
-                        // Could show update notification here
                     }
                 });
             });
 
         } catch (error) {
-            console.error('Service Worker registration failed:', error);
             state.serviceWorkerRegistered = false;
             updatePWAStatus();
         }
-    } else {
-        console.warn('Service Workers not supported in this browser');
     }
 }
 
-// =============================================
-// PWA Install Prompt
-// =============================================
 function setupInstallPrompt() {
     window.addEventListener('beforeinstallprompt', (event) => {
-        console.log('Install prompt available');
         event.preventDefault();
         state.installPromptEvent = event;
         elements.installBtn.style.display = 'block';
@@ -135,26 +106,20 @@ function setupInstallPrompt() {
         if (state.installPromptEvent) {
             state.installPromptEvent.prompt();
             const { outcome } = await state.installPromptEvent.userChoice;
-            console.log(`Install prompt outcome: ${outcome}`);
             state.installPromptEvent = null;
             elements.installBtn.style.display = 'none';
         }
     });
 
     window.addEventListener('appinstalled', () => {
-        console.log('PWA was installed');
         state.installPromptEvent = null;
         elements.installBtn.style.display = 'none';
     });
 }
 
-// =============================================
-// Online/Offline Detection
-// =============================================
 function setupNetworkDetection() {
     const updateOnlineStatus = () => {
         state.isOnline = navigator.onLine;
-        console.log(`Network status: ${state.isOnline ? 'online' : 'offline'}`);
 
         if (state.isOnline) {
             elements.offlineNotification.classList.remove('visible');
@@ -170,9 +135,6 @@ function setupNetworkDetection() {
     updateOnlineStatus();
 }
 
-// =============================================
-// PWA Status Display
-// =============================================
 function updatePWAStatus() {
     const indicator = elements.pwaStatus.querySelector('.status-indicator');
     const text = elements.pwaStatus.querySelector('.status-text');
@@ -188,9 +150,6 @@ function updatePWAStatus() {
     }
 }
 
-// =============================================
-// Meme Gallery
-// =============================================
 function renderMemeGrid() {
     elements.memeGrid.innerHTML = '';
 
@@ -200,7 +159,6 @@ function renderMemeGrid() {
         card.style.animationDelay = `${index * 0.1}s`;
         card.dataset.memeId = meme.id;
 
-        // Create a colorful placeholder with emoji
         const colors = [
             'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
             'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
@@ -234,14 +192,9 @@ function renderMemeGrid() {
     });
 }
 
-// =============================================
-// Modal Functions
-// =============================================
 function openMemeModal(meme, gradient) {
-    // Create a larger version of the emoji placeholder
     elements.modalImage.style.display = 'none';
 
-    // Create emoji display element if not exists
     let emojiDisplay = elements.modal.querySelector('.modal-emoji');
     if (!emojiDisplay) {
         emojiDisplay = document.createElement('div');
@@ -284,9 +237,6 @@ function setupModal() {
     });
 }
 
-// =============================================
-// Navigation
-// =============================================
 function setupNavigation() {
     elements.navLinks.forEach(link => {
         link.addEventListener('click', (event) => {
@@ -295,7 +245,6 @@ function setupNavigation() {
         });
     });
 
-    // Update active nav on scroll
     const sections = document.querySelectorAll('section[id]');
 
     window.addEventListener('scroll', () => {
@@ -318,30 +267,17 @@ function setupNavigation() {
     });
 }
 
-// =============================================
-// Initialization
-// =============================================
 window.addEventListener('load', async () => {
-    console.log('Cat Memes PWA initializing...');
-
-    // Register Service Worker
     await registerServiceWorker();
 
-    // Setup features
     setupInstallPrompt();
     setupNetworkDetection();
     setupModal();
     setupNavigation();
 
-    // Render content
     renderMemeGrid();
-
-    console.log('Cat Memes PWA initialized successfully!');
 });
 
-// =============================================
-// Expose for debugging
-// =============================================
 window.catMemesPWA = {
     state,
     CONFIG,

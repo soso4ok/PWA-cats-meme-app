@@ -1,45 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cat Memes PWA</title>
-    
-    <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json">
-    
-    <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
-    
-    <!-- Favicon -->
     <link rel="icon" href="images/pwa-icon-192.png" type="image/png">
-    
-    <!-- Apple PWA Meta Tags -->
     <link rel="apple-touch-icon" href="images/pwa-icon-152.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Cat Memes">
-    
-    <!-- Theme Colors -->
     <meta name="theme-color" content="#6366f1">
-    
-    <!-- Apple Splash Screens -->
-    <link rel="apple-touch-startup-image" href="images/splash-640x1136.png" media="(device-width: 320px) and (device-height: 568px)">
-    <link rel="apple-touch-startup-image" href="images/splash-750x1334.png" media="(device-width: 375px) and (device-height: 667px)">
-    <link rel="apple-touch-startup-image" href="images/splash-828x1792.png" media="(device-width: 414px) and (device-height: 896px)">
-    <link rel="apple-touch-startup-image" href="images/splash-1125x2436.png" media="(device-width: 375px) and (device-height: 812px)">
-    <link rel="apple-touch-startup-image" href="images/splash-1242x2688.png" media="(device-width: 414px) and (device-height: 896px)">
-    <link rel="apple-touch-startup-image" href="images/splash-1536x2048.png" media="(min-device-width: 768px) and (max-device-width: 1024px)">
-    <link rel="apple-touch-startup-image" href="images/splash-1668x2224.png" media="(min-device-width: 834px) and (max-device-width: 1112px)">
-    <link rel="apple-touch-startup-image" href="images/splash-1668x2388.png" media="(min-device-width: 834px) and (max-device-width: 1194px)">
-    <link rel="apple-touch-startup-image" href="images/splash-2048x2732.png" media="(min-device-width: 1024px) and (max-device-width: 1366px)">
-    
-    <!-- SEO -->
+    <link rel="apple-touch-startup-image" href="images/splash-640x1136.png"
+        media="(device-width: 320px) and (device-height: 568px)">
+    <link rel="apple-touch-startup-image" href="images/splash-750x1334.png"
+        media="(device-width: 375px) and (device-height: 667px)">
+    <link rel="apple-touch-startup-image" href="images/splash-828x1792.png"
+        media="(device-width: 414px) and (device-height: 896px)">
+    <link rel="apple-touch-startup-image" href="images/splash-1125x2436.png"
+        media="(device-width: 375px) and (device-height: 812px)">
+    <link rel="apple-touch-startup-image" href="images/splash-1242x2688.png"
+        media="(device-width: 414px) and (device-height: 896px)">
+    <link rel="apple-touch-startup-image" href="images/splash-1536x2048.png"
+        media="(min-device-width: 768px) and (max-device-width: 1024px)">
+    <link rel="apple-touch-startup-image" href="images/splash-1668x2224.png"
+        media="(min-device-width: 834px) and (max-device-width: 1112px)">
+    <link rel="apple-touch-startup-image" href="images/splash-1668x2388.png"
+        media="(min-device-width: 834px) and (max-device-width: 1194px)">
+    <link rel="apple-touch-startup-image" href="images/splash-2048x2732.png"
+        media="(min-device-width: 1024px) and (max-device-width: 1366px)">
     <meta name="description" content="A fun collection of cat memes - works offline as a Progressive Web App!">
 </head>
+
 <body>
     <div class="app">
-        <!-- Header -->
         <header class="header">
             <div class="header-content">
                 <div class="logo">
@@ -57,7 +53,6 @@
             </div>
         </header>
 
-        <!-- Hero Section -->
         <section id="home" class="hero">
             <div class="hero-content">
                 <h2 class="hero-title">Welcome to Cat Memes!</h2>
@@ -71,17 +66,12 @@
             </div>
         </section>
 
-        <!-- Gallery Section -->
         <section id="gallery" class="gallery-section">
             <h2 class="section-title">Meme Gallery</h2>
             <p class="section-subtitle">Click on a meme to see it fullscreen!</p>
-            
-            <div class="meme-grid" id="memeGrid">
-                <!-- Memes will be loaded here -->
-            </div>
+            <div class="meme-grid" id="memeGrid"></div>
         </section>
 
-        <!-- About Section -->
         <section id="about" class="about-section">
             <div class="about-content">
                 <h2 class="section-title">About This App</h2>
@@ -110,7 +100,6 @@
             </div>
         </section>
 
-        <!-- Footer -->
         <footer class="footer">
             <p>Cat Memes PWA &copy; 2026 | Built with ❤️ for Cloud Computing Lab</p>
             <div class="pwa-status" id="pwaStatus">
@@ -120,7 +109,6 @@
         </footer>
     </div>
 
-    <!-- Modal for fullscreen meme view -->
     <div class="modal" id="memeModal">
         <div class="modal-content">
             <button class="modal-close" id="modalClose">&times;</button>
@@ -129,7 +117,6 @@
         </div>
     </div>
 
-    <!-- Offline notification -->
     <div class="offline-notification" id="offlineNotification">
         <span class="offline-icon">📴</span>
         <span>You're offline - viewing cached content</span>
@@ -137,4 +124,5 @@
 
     <script src="js/main.js"></script>
 </body>
+
 </html>
