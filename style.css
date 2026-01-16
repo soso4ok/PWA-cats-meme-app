@@ -123,6 +123,7 @@ body {
 
 .hero {
     min-height: 100vh;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -150,6 +151,14 @@ body {
     position: relative;
     z-index: 1;
     animation: fadeInUp 1s ease-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
 }
 
 .hero-title {
@@ -168,6 +177,9 @@ body {
     color: var(--text-muted);
     margin-bottom: 2rem;
     max-width: 600px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .cta-button {
@@ -447,28 +459,33 @@ body {
 
 .offline-notification {
     position: fixed;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%) translateY(100px);
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    transform: translateY(150%);
     background: var(--error);
     color: white;
-    padding: 1rem 2rem;
-    border-radius: 50px;
+    padding: 1rem 1.5rem;
+    border-radius: 16px;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.75rem;
     font-weight: 500;
     box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);
     transition: var(--transition);
     z-index: 1500;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
 .offline-notification.visible {
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
 }
 
 .offline-icon {
     font-size: 1.25rem;
+    flex-shrink: 0;
 }
 
 @keyframes fadeInUp {
@@ -559,7 +576,26 @@ body {
     }
 
     .hero {
-        padding: 8rem 1.5rem 4rem;
+        padding: 8rem 1rem 4rem;
+        min-height: 100vh;
+    }
+
+    .hero-content {
+        padding: 0 0.5rem;
+    }
+
+    .hero-title {
+        font-size: clamp(2rem, 10vw, 3rem);
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+
+    .cta-button {
+        padding: 0.875rem 2rem;
+        font-size: 1rem;
     }
 
     .meme-grid {
@@ -577,6 +613,24 @@ body {
         width: 40px;
         height: 40px;
         font-size: 1.5rem;
+    }
+
+    .offline-notification {
+        left: 0.75rem;
+        right: 0.75rem;
+        bottom: 0.75rem;
+        padding: 0.875rem 1rem;
+        font-size: 0.9rem;
+        border-radius: 12px;
+    }
+
+    .section-title {
+        font-size: clamp(1.5rem, 6vw, 2rem);
+    }
+
+    .gallery-section,
+    .about-section {
+        padding: 4rem 1rem;
     }
 }
 
