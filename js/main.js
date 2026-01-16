@@ -68,6 +68,7 @@ const elements = {
     modalClose: document.getElementById('modalClose'),
     offlineNotification: document.getElementById('offlineNotification'),
     installBtn: document.getElementById('installBtn'),
+    heroInstallBtn: document.getElementById('heroInstallBtn'),
     pwaStatus: document.getElementById('pwaStatus'),
     navLinks: document.querySelectorAll('.nav-link')
 };
@@ -96,24 +97,42 @@ async function registerServiceWorker() {
 }
 
 function setupInstallPrompt() {
-    window.addEventListener('beforeinstallprompt', (event) => {
-        event.preventDefault();
-        state.installPromptEvent = event;
-        elements.installBtn.style.display = 'block';
-    });
+    const showInstallButtons = () => {
+        if (elements.installBtn) elements.installBtn.style.display = 'block';
+        if (elements.heroInstallBtn) elements.heroInstallBtn.classList.remove('hidden');
+    };
 
-    elements.installBtn.addEventListener('click', async () => {
+    const hideInstallButtons = () => {
+        if (elements.installBtn) elements.installBtn.style.display = 'none';
+        if (elements.heroInstallBtn) elements.heroInstallBtn.classList.add('hidden');
+    };
+
+    const handleInstallClick = async () => {
         if (state.installPromptEvent) {
             state.installPromptEvent.prompt();
             const { outcome } = await state.installPromptEvent.userChoice;
             state.installPromptEvent = null;
-            elements.installBtn.style.display = 'none';
+            hideInstallButtons();
         }
+    };
+
+    window.addEventListener('beforeinstallprompt', (event) => {
+        event.preventDefault();
+        state.installPromptEvent = event;
+        showInstallButtons();
     });
+
+    if (elements.installBtn) {
+        elements.installBtn.addEventListener('click', handleInstallClick);
+    }
+
+    if (elements.heroInstallBtn) {
+        elements.heroInstallBtn.addEventListener('click', handleInstallClick);
+    }
 
     window.addEventListener('appinstalled', () => {
         state.installPromptEvent = null;
-        elements.installBtn.style.display = 'none';
+        hideInstallButtons();
     });
 }
 
