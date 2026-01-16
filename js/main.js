@@ -1,7 +1,7 @@
 'use strict';
 
 const CONFIG = {
-    serviceWorkerPath: '/sw.js',
+    serviceWorkerPath: './sw.js',
     memes: [
         {
             id: 1,

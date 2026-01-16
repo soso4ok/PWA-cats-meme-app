@@ -1,13 +1,13 @@
 const CACHE_NAME = 'cat-memes-pwa-v1';
 
 const STATIC_ASSETS = [
-    '/',
-    '/index.html',
-    '/style.css',
-    '/js/main.js',
-    '/manifest.json',
-    '/images/pwa-icon-192.png',
-    '/images/pwa-icon-512.png'
+    './',
+    './index.html',
+    './style.css',
+    './js/main.js',
+    './manifest.json',
+    './images/pwa-icon-192.png',
+    './images/pwa-icon-512.png'
 ];
 
 self.addEventListener('install', (event) => {
@@ -73,11 +73,11 @@ self.addEventListener('fetch', (event) => {
                     })
                     .catch(() => {
                         if (event.request.mode === 'navigate') {
-                            return caches.match('/index.html');
+                            return caches.match('./index.html');
                         }
 
                         if (event.request.destination === 'image') {
-                            return caches.match('/images/pwa-icon-192.png');
+                            return caches.match('./images/pwa-icon-192.png');
                         }
 
                         return undefined;
@@ -101,8 +101,8 @@ self.addEventListener('push', (event) => {
 
         const options = {
             body: data.body || 'New cat meme available!',
-            icon: '/images/pwa-icon-192.png',
-            badge: '/images/pwa-icon-128.png',
+            icon: './images/pwa-icon-192.png',
+            badge: './images/pwa-icon-128.png',
             vibrate: [100, 50, 100],
             data: {
                 dateOfArrival: Date.now(),
@@ -125,7 +125,7 @@ self.addEventListener('notificationclick', (event) => {
 
     if (event.action === 'view') {
         event.waitUntil(
-            clients.openWindow('/')
+            clients.openWindow('./')
         );
     }
 });
